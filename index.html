@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Chapter Audio Selector</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f5f5f5;
+      color: #333;
+      text-align: center;
+      padding: 2em;
+    }
+
+    select, audio {
+      margin-top: 1em;
+      font-size: 1em;
+      padding: 0.5em;
+    }
+
+    audio {
+      display: block;
+      margin: 1em auto;
+      width: 80%;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎧 The Boy. When The Heart Doesn't Speak</h1>
+
+  <label for="chapterSelect">Choose a chapter:</label>
+  <br>
+  <select id="chapterSelect">
+    <option value="">-- Select a chapter --</option>
+  </select>
+
+  <audio id="player" controls></audio>
+
+  <script>
+    const select = document.getElementById("chapterSelect");
+    const audio = document.getElementById("player");
+
+    // Generate 34 chapter options
+    for (let i = 1; i <= 34; i++) {
+      const filename = `chapter${String(i).padStart(3, '0')}.mp3`;
+      const option = document.createElement("option");
+      option.value = `audio/${filename}`;
+      option.textContent = `Chapter ${i}`;
+      select.appendChild(option);
+    }
+
+    // Update audio source when selection changes
+    select.addEventListener("change", function () {
+      const selected = this.value;
+      if (selected) {
+        audio.src = selected;
+        audio.play();
+      } else {
+        audio.src = "";
+      }
+    });
+  </script>
+</body>
+</html>
